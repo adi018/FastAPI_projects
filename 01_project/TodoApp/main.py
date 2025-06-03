@@ -5,12 +5,16 @@ from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from typing import Annotated
 
+from routers import auth # Import the auth router from the routers module
 
-
+# Initialize the FastAPI application
 app = FastAPI()
 
 # Create the database tables based on the models defined in the models module
 models.Base.metadata.create_all(bind=engine)
+
+app.include_router(auth.router)  # Include the router for models
+
 
 def get_db():
     """
